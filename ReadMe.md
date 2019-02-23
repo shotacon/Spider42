@@ -1,6 +1,6 @@
 
 1. 下载源码, 使用mvn jfx:native 编译出app文件
-2. 下载app, 直接使用.
+2. 下载app, 直接使用(以后再说)
 
 Youtube暂未实现.
 
