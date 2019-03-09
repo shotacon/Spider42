@@ -1,5 +1,9 @@
 package top.shotacon.application;
 
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
@@ -15,12 +19,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.TextFieldTableCell;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.spider.UrlUtil;
+import top.shotacon.application.utils.MessageUtil;
 
 public class MainScene implements Initializable {
 
@@ -51,6 +57,9 @@ public class MainScene implements Initializable {
     private ComboBox<String> siteTypeList;
 
     @FXML
+    private Label notify;
+
+    @FXML
     private CheckBox isProxy;
 
     @FXML
@@ -63,24 +72,39 @@ public class MainScene implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        textArea.editableProperty().set(false);
         List<String> list = Arrays.asList(youtube, pornhub);
         siteTypeList.getItems().addAll(list);
         siteTypeList.setPromptText("Site Type");
 
+        // 获取系统剪贴板
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+
         tvColumn.setCellValueFactory(cellData -> cellData.getValue().getColumn());
         tvValue.setCellValueFactory(cellData -> cellData.getValue().getValue());
-        tvValue.setCellFactory(TextFieldTableCell.forTableColumn());
+//        tvValue.setCellFactory(TextFieldTableCell.forTableColumn());
         tableView.setItems(dataList);
-        tableView.setEditable(true);
+//        tableView.setEditable(true);
+        tableView.setRowFactory(tv -> {
+            TableRow<VideoInfo> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                    VideoInfo rowData = row.getItem();
+                    // 封装文本内容
+                    Transferable trans = new StringSelection(rowData.getValue().get());
+                    // 把文本内容设置到系统剪贴板
+                    clipboard.setContents(trans, null);
+                    MessageUtil.showTimeLabel(5000, "已复制到剪贴板", notify);
+                }
+            });
+            return row;
+        });
     }
 
     public void onClickButtonClick(ActionEvent event) {
-        dataList.clear();
+        reSet();
         String text = textParam.getText();
         if (text.isEmpty()) {
             dataList.add(new VideoInfo("Warning", "输入栏请不要为空哦."));
-//            textArea.setText("输入栏请不要为空哦.");
             return;
         }
 
@@ -95,9 +119,17 @@ public class MainScene implements Initializable {
                 dataList.addAll(Pornhub.doSpider(text));
             } catch (Exception e) {
                 dataList.add(new VideoInfo("Error", e.getMessage()));
-//                textArea.setText(e.getMessage());
             }
         }
+    }
+
+    private void reSet() {
+        dataList.clear();
+        notify.setText("");
+    }
+
+    public void onMouseMoved(ActionEvent event) {
+        notify.setText("");
     }
 
 }
