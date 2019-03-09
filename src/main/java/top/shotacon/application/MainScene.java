@@ -7,14 +7,18 @@ import java.util.ResourceBundle;
 
 import org.apache.commons.lang3.StringUtils;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldTableCell;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.spider.UrlUtil;
 
@@ -32,8 +36,16 @@ public class MainScene implements Initializable {
     @FXML
     private TextField textParam;
 
+//    @FXML
+//    private TextArea textArea;
     @FXML
-    private TextArea textArea;
+    private TableView<VideoInfo> tableView;
+
+    @FXML
+    private TableColumn<VideoInfo, String> tvColumn;
+
+    @FXML
+    private TableColumn<VideoInfo, String> tvValue;
 
     @FXML
     private ComboBox<String> siteTypeList;
@@ -47,18 +59,28 @@ public class MainScene implements Initializable {
     @FXML
     private TextField proxyHostText;
 
+    private ObservableList<VideoInfo> dataList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        textArea.editableProperty().set(false);
+//        textArea.editableProperty().set(false);
         List<String> list = Arrays.asList(youtube, pornhub);
         siteTypeList.getItems().addAll(list);
         siteTypeList.setPromptText("Site Type");
+
+        tvColumn.setCellValueFactory(cellData -> cellData.getValue().getColumn());
+        tvValue.setCellValueFactory(cellData -> cellData.getValue().getValue());
+        tvValue.setCellFactory(TextFieldTableCell.forTableColumn());
+        tableView.setItems(dataList);
+        tableView.setEditable(true);
     }
 
     public void onClickButtonClick(ActionEvent event) {
+        dataList.clear();
         String text = textParam.getText();
         if (text.isEmpty()) {
-            textArea.setText("输入栏请不要为空哦.");
+            dataList.add(new VideoInfo("Warning", "输入栏请不要为空哦."));
+//            textArea.setText("输入栏请不要为空哦.");
             return;
         }
 
@@ -70,9 +92,10 @@ public class MainScene implements Initializable {
 
         if (siteTypeList.getValue().equals(pornhub)) {
             try {
-                textArea.setText(Pornhub.doSpider(text));
+                dataList.addAll(Pornhub.doSpider(text));
             } catch (Exception e) {
-                textArea.setText(e.getMessage());
+                dataList.add(new VideoInfo("Error", e.getMessage()));
+//                textArea.setText(e.getMessage());
             }
         }
     }

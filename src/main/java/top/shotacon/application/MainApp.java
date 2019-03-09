@@ -10,7 +10,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("/MainScene.fxml"));
+            Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainScene.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("What's up");
             primaryStage.show();
