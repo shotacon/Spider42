@@ -8,7 +8,6 @@ import java.util.regex.Pattern;
 import com.alibaba.fastjson.JSONObject;
 
 import javafx.collections.FXCollections;
-import top.shotacon.application.VideoInfo;
 
 public class Pornhub {
 

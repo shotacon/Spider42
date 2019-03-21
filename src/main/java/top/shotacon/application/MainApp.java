@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
@@ -13,6 +14,7 @@ public class MainApp extends Application {
             Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainScene.fxml"));
             primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("What's up");
+            primaryStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/spider.png")));
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

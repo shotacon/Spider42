@@ -26,6 +26,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.spider.UrlUtil;
+import top.shotacon.application.spider.VideoInfo;
 import top.shotacon.application.utils.MessageUtil;
 
 public class MainScene implements Initializable {
