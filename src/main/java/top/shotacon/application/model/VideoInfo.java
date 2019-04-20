@@ -1,4 +1,4 @@
-package top.shotacon.application.spider;
+package top.shotacon.application.model;
 
 import javafx.beans.property.SimpleStringProperty;
 

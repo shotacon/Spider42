@@ -24,9 +24,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import top.shotacon.application.enums.TipType;
+import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.spider.UrlUtil;
-import top.shotacon.application.spider.VideoInfo;
 import top.shotacon.application.utils.MessageUtil;
 
 public class MainScene implements Initializable {
@@ -76,7 +77,7 @@ public class MainScene implements Initializable {
         List<String> list = Arrays.asList(youtube, pornhub);
         siteTypeList.getItems().addAll(list);
         siteTypeList.setPromptText("Site Type");
-
+        
         // 获取系统剪贴板
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
@@ -105,7 +106,7 @@ public class MainScene implements Initializable {
         reSet();
         String text = textParam.getText();
         if (text.isEmpty()) {
-            dataList.add(new VideoInfo("Warning", "输入栏请不要为空哦."));
+            dataList.add(new VideoInfo(TipType.WARNING.getName(), "输入栏请不要为空哦."));
             return;
         }
 
@@ -119,8 +120,10 @@ public class MainScene implements Initializable {
             try {
                 dataList.addAll(Pornhub.doSpider(text));
             } catch (Exception e) {
-                dataList.add(new VideoInfo("Error", e.getMessage()));
+                dataList.add(new VideoInfo(TipType.ERROR.getName(), e.getMessage()));
             }
+        }else {
+            dataList.add(new VideoInfo(TipType.WARNING.getName(), "你问我滋不滋磁呀, 那当然是不滋磁."));
         }
     }
 
