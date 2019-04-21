@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -24,6 +26,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.concurrent.Task;
 import top.shotacon.application.enums.TipType;
 import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
@@ -37,6 +40,8 @@ public class MainScene implements Initializable {
 
     private static final String defaultHost = "127.0.0.1";
     private static final String defaultPort = "8001";
+
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     @FXML
     private Button clickButton;
@@ -77,7 +82,7 @@ public class MainScene implements Initializable {
         List<String> list = Arrays.asList(youtube, pornhub);
         siteTypeList.getItems().addAll(list);
         siteTypeList.setPromptText("Site Type");
-        
+
         // 获取系统剪贴板
         Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 
@@ -118,11 +123,16 @@ public class MainScene implements Initializable {
 
         if (siteTypeList.getValue().equals(pornhub)) {
             try {
-                dataList.addAll(Pornhub.doSpider(text));
+                executorService.submit(new Task<Boolean>() {
+                    @Override
+                    protected Boolean call() throws Exception {
+                        return dataList.addAll(Pornhub.doSpider(text));
+                    }
+                });
             } catch (Exception e) {
                 dataList.add(new VideoInfo(TipType.ERROR.getName(), e.getMessage()));
             }
-        }else {
+        } else {
             dataList.add(new VideoInfo(TipType.WARNING.getName(), "你问我滋不滋磁呀, 那当然是不滋磁."));
         }
     }
