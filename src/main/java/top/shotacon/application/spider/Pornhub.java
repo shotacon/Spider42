@@ -10,9 +10,10 @@ import com.alibaba.fastjson.JSONObject;
 import javafx.collections.FXCollections;
 import top.shotacon.application.model.VideoInfo;
 
+@SuppressWarnings("restriction")
 public class Pornhub {
 
-    public static List<VideoInfo> doSpider(String basePath) throws Exception {
+	public static List<VideoInfo> doSpider(String basePath) throws Exception {
 
         String data = UrlUtil.getHtml(basePath);
 

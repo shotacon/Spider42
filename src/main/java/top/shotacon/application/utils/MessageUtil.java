@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+@SuppressWarnings("restriction")
 public class MessageUtil {
 
     private static ExecutorService taskThread;
@@ -26,7 +27,7 @@ public class MessageUtil {
      * @param message 提示信息
      * @param label   标签类
      */
-    public static void showTimeLabel(long time, String message, Label label) {
+	public static void showTimeLabel(long time, String message, Label label) {
         label.setText(message);
         doTask(new Runnable() {
             @Override

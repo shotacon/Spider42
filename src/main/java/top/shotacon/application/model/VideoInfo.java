@@ -2,9 +2,10 @@ package top.shotacon.application.model;
 
 import javafx.beans.property.SimpleStringProperty;
 
+@SuppressWarnings("restriction")
 public class VideoInfo {
 
-    private SimpleStringProperty column;
+	private SimpleStringProperty column;
 
     private SimpleStringProperty value;
 
