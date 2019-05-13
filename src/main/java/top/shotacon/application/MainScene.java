@@ -32,6 +32,7 @@ import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.spider.UrlUtil;
 import top.shotacon.application.utils.MessageUtil;
+import top.shotacon.application.utils.ValidatorUtil;
 
 @SuppressWarnings("restriction")
 public class MainScene implements Initializable {
@@ -113,6 +114,10 @@ public class MainScene implements Initializable {
 		String text = textParam.getText();
 		if (text.isEmpty()) {
 			dataList.add(new VideoInfo(TipType.WARNING.getName(), "输入栏请不要为空哦."));
+			return;
+		}
+		if (!ValidatorUtil.isUrl(text)) {
+			dataList.add(new VideoInfo(TipType.WARNING.getName(), "请输入有效的地址链接."));
 			return;
 		}
 
