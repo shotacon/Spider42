@@ -1,4 +1,4 @@
-package top.shotacon.application.spider;
+package top.shotacon.application.utils;
 
 import java.io.IOException;
 import java.security.KeyManagementException;
@@ -33,7 +33,7 @@ public class UrlUtil {
     public static String proxyHost = "127.0.0.1";
     public static int proxyPort = 8001;
 
-    static String getHtml(String strUrl) throws Exception {
+    public static String getHtml(String strUrl) throws Exception {
         String str = null;
         if (proxy) {
             SystemDefaultCredentialsProvider credentialsProvider = new SystemDefaultCredentialsProvider();

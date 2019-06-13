@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import javafx.collections.FXCollections;
 import top.shotacon.application.model.VideoInfo;
+import top.shotacon.application.utils.UrlUtil;
 
 @SuppressWarnings("restriction")
 public class Pornhub {

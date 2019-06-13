@@ -30,8 +30,8 @@ import javafx.concurrent.Task;
 import top.shotacon.application.enums.TipType;
 import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
-import top.shotacon.application.spider.UrlUtil;
 import top.shotacon.application.utils.MessageUtil;
+import top.shotacon.application.utils.UrlUtil;
 import top.shotacon.application.utils.ValidatorUtil;
 
 @SuppressWarnings("restriction")
