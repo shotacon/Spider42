@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import top.shotacon.application.utils.MessageUtil;
+import top.shotacon.application.utils.ThreadUtil;
 
 @SuppressWarnings("restriction")
 public class MainApp extends Application {
@@ -26,6 +27,7 @@ public class MainApp extends Application {
 	@Override
 	public void stop() throws Exception {
 		MessageUtil.shutdown();
+		ThreadUtil.executorService.shutdown();
 		super.stop();
 	}
 

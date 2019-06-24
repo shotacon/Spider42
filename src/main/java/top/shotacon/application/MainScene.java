@@ -31,6 +31,7 @@ import top.shotacon.application.enums.TipType;
 import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
 import top.shotacon.application.utils.MessageUtil;
+import top.shotacon.application.utils.ThreadUtil;
 import top.shotacon.application.utils.UrlUtil;
 import top.shotacon.application.utils.ValidatorUtil;
 
@@ -42,8 +43,6 @@ public class MainScene implements Initializable {
 
 	private static final String defaultHost = "127.0.0.1";
 	private static final String defaultPort = "8001";
-
-	private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
 	@FXML
 	private Button clickButton;
@@ -129,7 +128,7 @@ public class MainScene implements Initializable {
 
 		if (siteTypeList.getValue().equals(pornhub)) {
 			try {
-				executorService.submit(new Task<Boolean>() {
+				ThreadUtil.executorService.submit(new Task<Boolean>() {
 					@Override
 					protected Boolean call() throws Exception {
 						return dataList.addAll(Pornhub.doSpider(text));
