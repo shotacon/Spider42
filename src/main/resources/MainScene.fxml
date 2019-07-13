@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
@@ -9,14 +10,14 @@
    <children>
       <Pane prefHeight="462.0" prefWidth="754.0">
          <children>
-            <Button fx:id="clickButton" layoutX="646.0" layoutY="30.0" mnemonicParsing="false" onAction="#onClickButtonClick" text="ClickMe" />
-            <TextField fx:id="textParam" layoutX="170.0" layoutY="30.0" prefHeight="27.0" prefWidth="462.0" />
-            <ComboBox fx:id="siteTypeList" layoutX="37.0" layoutY="30.0" prefHeight="27.0" prefWidth="121.0" />
-            <CheckBox fx:id="isProxy" layoutX="70.0" layoutY="74.0" mnemonicParsing="false" text="EnableProxy" />
+            <JFXButton fx:id="clickButton" layoutX="646.0" layoutY="30.0" mnemonicParsing="false" onAction="#onClickButtonClick" text="ClickMe" />
+            <JFXTextField fx:id="textParam" layoutX="170.0" layoutY="30.0" prefHeight="27.0" prefWidth="462.0" />
+            <JFXComboBox fx:id="siteTypeList" layoutX="37.0" layoutY="30.0" prefHeight="27.0" prefWidth="121.0" />
+            <!-- <CheckBox fx:id="isProxy" layoutX="70.0" layoutY="74.0" mnemonicParsing="false" text="EnableProxy" /> -->
             <Label layoutX="205.0" layoutY="74.0" prefHeight="17.0" prefWidth="49.0" text="Server:" />
             <Label layoutX="475.0" layoutY="74.0" prefHeight="17.0" prefWidth="38.0" text="Port:" />
-            <TextField fx:id="proxyHostText" layoutX="269.0" layoutY="69.0" text="127.0.0.1" />
-            <TextField fx:id="proxyPortText" layoutX="534.0" layoutY="69.0" prefHeight="27.0" prefWidth="84.0" text="8001" />
+            <JFXTextField fx:id="proxyHostText" layoutX="269.0" layoutY="69.0" text="127.0.0.1" />
+            <JFXTextField fx:id="proxyPortText" layoutX="534.0" layoutY="69.0" prefHeight="27.0" prefWidth="84.0" text="8001" />
             <TableView fx:id="tableView" layoutX="37.0" layoutY="116.0" prefHeight="302.0" prefWidth="678.0">
               <columns>
                 <TableColumn fx:id="tvColumn" prefWidth="104.0" sortable="false" text="Column" />
@@ -24,6 +25,7 @@
               </columns>
             </TableView>
             <Label fx:id="notify" layoutX="36.0" layoutY="431.0" prefHeight="17.0" prefWidth="678.0" />
+            <JFXCheckBox fx:id="isProxy" layoutX="70.0" layoutY="74.0" mnemonicParsing="false" text="EnableProxy" />
          </children>
       </Pane>
    </children>
