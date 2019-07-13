@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import top.shotacon.application.utils.MessageUtil;
 import top.shotacon.application.utils.ThreadUtil;
 
-@SuppressWarnings("restriction")
 public class MainApp extends Application {
 	@Override
 	public void start(Stage primaryStage) {

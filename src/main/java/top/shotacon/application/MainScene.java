@@ -8,13 +8,12 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 import org.apache.commons.lang3.StringUtils;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +25,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.concurrent.Task;
 import top.shotacon.application.enums.TipType;
 import top.shotacon.application.model.VideoInfo;
 import top.shotacon.application.spider.Pornhub;
@@ -35,7 +33,6 @@ import top.shotacon.application.utils.ThreadUtil;
 import top.shotacon.application.utils.UrlUtil;
 import top.shotacon.application.utils.ValidatorUtil;
 
-@SuppressWarnings("restriction")
 public class MainScene implements Initializable {
 
 	private static final String pornhub = "Pornhub";
