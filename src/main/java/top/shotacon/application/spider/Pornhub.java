@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.alibaba.fastjson.JSONObject;
 
 import javafx.collections.FXCollections;
@@ -13,7 +15,7 @@ import top.shotacon.application.utils.UrlUtil;
 
 @SuppressWarnings("restriction")
 public class Pornhub {
-
+    
 	public static List<VideoInfo> doSpider(String basePath) throws Exception {
 
         String data = UrlUtil.getHtml(basePath);

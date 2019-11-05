@@ -9,6 +9,7 @@ import java.security.cert.X509Certificate;
 
 import javax.net.ssl.SSLContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -26,12 +27,41 @@ import org.apache.http.util.EntityUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class UrlUtil {
 
     public static boolean proxy = true;
     public static String proxyHost = "127.0.0.1";
-    public static int proxyPort = 8001;
+    public static int proxyPort = 10809;
+
+    public static String getVideoUrl(String viewUrl) {
+        String videoUrl = null;
+        Document doc;
+        try {
+            doc = Jsoup.parse(getHtml(viewUrl));
+            if (doc == null) {
+                return null;
+            }
+            Elements scripts = doc.getElementsByTag("script");
+            if (scripts == null || scripts.size() == 0) {
+                return null;
+            }
+            for (Element script : scripts) {
+                String scriptStr = script.html();
+                if (StringUtils.contains(scriptStr, "html5player.setVideoUrlHigh('")) {
+                    return scriptStr;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static String getHtml(String strUrl) throws Exception {
         String str = null;
@@ -45,6 +75,11 @@ public class UrlUtil {
             HttpHost proxy = new HttpHost(proxyHost, proxyPort);
             RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
             HttpGet getMethod = new HttpGet(strUrl);
+            getMethod.setHeader("Accept-Encoding", "identity;q=1, *;q=0");
+            getMethod.setHeader("Range", "bytes=0-");
+            getMethod.setHeader("User-Agent",
+                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36");
+            getMethod.setHeader("Sec-Fetch-Mode", "no-cors");
             getMethod.setConfig(config);
             CloseableHttpResponse rsp = httpClient.execute(getMethod);
             str = EntityUtils.toString(rsp.getEntity());
